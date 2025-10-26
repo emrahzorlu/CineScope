@@ -1,0 +1,7 @@
+// Config.example.xcconfig
+// Setup Instructions:
+// 1. Copy this file as "Config.xcconfig"
+// 2. Get your API key from https://www.themoviedb.org/settings/api
+// 3. Replace YOUR_API_KEY_HERE with your actual key
+
+TMDB_API_KEY = YOUR_API_KEY_HERE
