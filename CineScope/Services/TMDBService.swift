@@ -92,7 +92,8 @@ class TMDBService {
   }
   
   // MARK: - Reviews (Yorumlar)
+  // NOT: Language parametresi YOK - Tüm dillerdeki yorumları getirir
   func fetchMovieReviews(movieId: Int) async throws -> ReviewResponse {
-    try await request(endpoint: "/movie/\(movieId)/reviews", parameters: ["language": "tr-TR"])
+    try await request(endpoint: "/movie/\(movieId)/reviews", parameters: [:])
   }
 }

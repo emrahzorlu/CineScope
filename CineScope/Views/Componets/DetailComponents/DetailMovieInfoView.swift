@@ -1,0 +1,129 @@
+//
+//  DetailMovieInfoView.swift
+//  CineScope
+//
+//  Created by Emrah Zorlu on 26.10.2025.
+//
+
+import SwiftUI
+
+struct DetailMovieInfoView: View {
+  let movie: Movie
+  let movieDetail: MovieDetail?
+  let onPlayTapped: () -> Void
+  let onAddToListTapped: () -> Void
+  
+  var body: some View {
+    VStack(alignment: .leading, spacing: 8) {
+      // Başlık
+      Text(movieDetail?.title ?? movie.title)
+        .font(.title)
+        .fontWeight(.bold)
+        .foregroundColor(.white)
+        .fixedSize(horizontal: false, vertical: true)
+      
+      // Türler (Kapsül şeklinde)
+      if let genres = movieDetail?.genres, !genres.isEmpty {
+        ScrollView(.horizontal, showsIndicators: false) {
+          HStack(spacing: 8) {
+            ForEach(genres) { genre in
+              Text(genre.name)
+                .font(.subheadline)
+                .fontWeight(.medium)
+                .foregroundColor(.white)
+                .padding(.horizontal, 16)
+                .padding(.vertical, 8)
+                .background(Color.white.opacity(0.2))
+                .cornerRadius(20)
+            }
+          }
+        }
+      }
+      
+      // Meta bilgiler (Rating, Yıl, Süre)
+      HStack(spacing: 12) {
+        // Rating
+        HStack(spacing: 4) {
+          Image(systemName: "star.fill")
+            .foregroundColor(.yellow)
+          Text(movie.ratingText)
+            .foregroundColor(.white)
+        }
+        
+        Text("•")
+          .foregroundColor(.gray)
+        
+        // Yıl
+        Text(movie.year)
+          .foregroundColor(.gray)
+        
+        // Süre
+        if let runtime = movieDetail?.runtimeText {
+          Text("•")
+            .foregroundColor(.gray)
+          Text(runtime)
+            .foregroundColor(.gray)
+        }
+      }
+      .font(.subheadline)
+      .padding(.top, 4)
+      
+      // Butonlar
+      HStack(spacing: 12) {
+        // İzle Butonu
+        Button(action: onPlayTapped) {
+          HStack(spacing: 8) {
+            Image(systemName: "play.fill")
+            Text("İzle")
+              .fontWeight(.semibold)
+          }
+          .frame(maxWidth: .infinity)
+          .padding(.vertical, 12)
+          .background(Color.white)
+          .foregroundColor(.black)
+          .cornerRadius(8)
+        }
+        
+        // Listeye Ekle
+        Button(action: onAddToListTapped) {
+          Image(systemName: "plus")
+            .font(.title3)
+            .foregroundColor(.white)
+            .padding(12)
+            .background(Color.gray.opacity(0.3))
+            .cornerRadius(8)
+        }
+      }
+      .padding(.top, 8)
+      
+      // Özet
+      if let overview = movieDetail?.overview {
+        VStack(alignment: .leading, spacing: 8) {
+          Text("Özet")
+            .font(.headline)
+            .foregroundColor(.white)
+          
+          Text(overview)
+            .font(.body)
+            .foregroundColor(.gray)
+            .lineSpacing(4)
+        }
+        .padding(.top, 8)
+      }
+    }
+    .padding()
+  }
+}
+
+#Preview {
+  ZStack {
+    Color.black.ignoresSafeArea()
+    
+    DetailMovieInfoView(
+      movie: MockData.sampleMovie1,
+      movieDetail: MockData.sampleMovieDetail,
+      onPlayTapped: {},
+      onAddToListTapped: {}
+    )
+  }
+}
