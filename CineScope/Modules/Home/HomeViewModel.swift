@@ -9,6 +9,8 @@ import Foundation
 
 @MainActor
 final class HomeViewModel: ObservableObject {
+  static let shared = HomeViewModel()
+  
   @Published var trendingMovies: [Movie] = []
   @Published var popularMovies: [Movie] = []
   @Published var nowPlayingMovies: [Movie] = []
@@ -18,8 +20,15 @@ final class HomeViewModel: ObservableObject {
   @Published var errorMessage: String?
   
   private let tmdbService = TMDBService.shared
+  private var hasLoadedOnce = false
+  
+  private init() {}
   
   func loadMovies() async {
+    if hasLoadedOnce && !trendingMovies.isEmpty {
+      return
+    }
+    
     isLoading = true
     errorMessage = nil
     
@@ -36,10 +45,17 @@ final class HomeViewModel: ObservableObject {
       self.nowPlayingMovies = nowPlayingResponse.results
       self.topRatedMovies = topRatedResponse.results
       
+      hasLoadedOnce = true
+      
     } catch {
       errorMessage = "Hata: \(error.localizedDescription)"
     }
     
     isLoading = false
+  }
+  
+  func forceRefresh() async {
+    hasLoadedOnce = false
+    await loadMovies()
   }
 }

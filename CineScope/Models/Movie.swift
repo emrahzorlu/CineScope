@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Movie: Codable, Identifiable, Hashable {  // ← Hashable eklendi
+struct Movie: Codable, Identifiable, Hashable {
   let id: Int
   let title: String
   let overview: String
@@ -48,12 +48,10 @@ struct Movie: Codable, Identifiable, Hashable {  // ← Hashable eklendi
     String(releaseDate.prefix(4))
   }
   
-  // Hashable için (id unique olduğundan sadece id'ye göre hash)
   func hash(into hasher: inout Hasher) {
     hasher.combine(id)
   }
   
-  // Equatable için (Hashable bunu gerektirir)
   static func == (lhs: Movie, rhs: Movie) -> Bool {
     lhs.id == rhs.id
   }

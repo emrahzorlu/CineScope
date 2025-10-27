@@ -17,7 +17,6 @@ struct SearchView: View {
           .ignoresSafeArea()
         
         VStack(spacing: 0) {
-          // Search Bar
           HStack {
             HStack {
               Image(systemName: "magnifyingglass")
@@ -42,7 +41,6 @@ struct SearchView: View {
           }
           .padding()
           
-          // Content
           if viewModel.searchText.isEmpty {
             EmptySearchView()
           } else if viewModel.isLoading {
@@ -96,7 +94,6 @@ struct SearchView: View {
   }
 }
 
-// MARK: - Empty Search View
 struct EmptySearchView: View {
   var body: some View {
     VStack(spacing: 20) {
@@ -118,13 +115,11 @@ struct EmptySearchView: View {
   }
 }
 
-// MARK: - Search Movie Card
 struct SearchMovieCard: View {
   let movie: Movie
   
   var body: some View {
     VStack(alignment: .leading, spacing: 0) {
-      // Poster
       AsyncImage(url: movie.posterURL) { image in
         image
           .resizable()
@@ -140,7 +135,6 @@ struct SearchMovieCard: View {
       .frame(height: 180)
       .clipShape(RoundedRectangle(cornerRadius: 12))
       
-      // Text ve Rating - poster'a yapışık
       VStack(alignment: .leading, spacing: 4) {
         Text(movie.title)
           .font(.caption)
@@ -162,7 +156,6 @@ struct SearchMovieCard: View {
         }
       }
       
-      // Spacer en altta - boşluk buraya
       Spacer(minLength: 0)
     }
     .frame(height: 240)

@@ -22,9 +22,7 @@ final class SearchViewModel: ObservableObject {
     setupSearch()
   }
   
-  // MARK: - Debounced Search
   private func setupSearch() {
-    // searchText değiştiğinde 0.5 saniye bekle, sonra ara
     $searchText
       .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
       .removeDuplicates()
@@ -36,9 +34,7 @@ final class SearchViewModel: ObservableObject {
       .store(in: &cancellables)
   }
   
-  // MARK: - Search
   private func performSearch(query: String) async {
-    // Boş ise temizle
     guard !query.trimmingCharacters(in: .whitespaces).isEmpty else {
       movies = []
       errorMessage = nil

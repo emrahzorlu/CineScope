@@ -1,0 +1,24 @@
+{
+  "originHash" : "9aab75270472613b6f9ed7f6cf68d4cb9f33fa8ad09ce6667061b901becdc0c7",
+  "pins" : [
+    {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher.git",
+      "state" : {
+        "revision" : "dd3c422ec3088404d6f7e8c905a8318b3de12d6f",
+        "version" : "8.6.0"
+      }
+    },
+    {
+      "identity" : "youtubeplayerkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/SvenTiigi/YouTubePlayerKit",
+      "state" : {
+        "revision" : "0f9a98c58462686afc7d3a1355baf21f07e5d330",
+        "version" : "2.0.4"
+      }
+    }
+  ],
+  "version" : 3
+}

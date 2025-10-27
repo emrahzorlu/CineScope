@@ -133,7 +133,7 @@ struct MovieDetailView: View {
       MovieDetailView(movie: movie)
     }
     .fullScreenCover(isPresented: $showVideoPlayer) {
-      VideoPlayerView(video: $selectedVideo, movieTitle: movie.title)  // ← Binding ile geçir
+      VideoPlayerView(video: $selectedVideo, movieTitle: movie.title)
         .onAppear {
           print("📺 fullScreenCover açıldı")
           print("  - selectedVideo: \(selectedVideo != nil ? "VAR" : "YOK")")

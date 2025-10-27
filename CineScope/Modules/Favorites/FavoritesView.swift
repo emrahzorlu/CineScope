@@ -80,7 +80,6 @@ struct FavoriteMovieCard: View {
   
   var body: some View {
     VStack(alignment: .leading, spacing: 0) {
-      // Poster
       ZStack(alignment: .topTrailing) {
         AsyncImage(url: movie.posterURL) { image in
           image
@@ -97,7 +96,6 @@ struct FavoriteMovieCard: View {
         .frame(height: 180)
         .clipShape(RoundedRectangle(cornerRadius: 12))
         
-        // Remove button
         Button {
           withAnimation {
             favoritesManager.removeFavorite(movie)
@@ -112,7 +110,6 @@ struct FavoriteMovieCard: View {
         .padding(8)
       }
       
-      // Text ve Rating - poster'a yapışık
       VStack(alignment: .leading, spacing: 4) {
         Text(movie.title)
           .font(.caption)
@@ -134,7 +131,6 @@ struct FavoriteMovieCard: View {
         }
       }
       
-      // Spacer en altta - boşluk buraya
       Spacer(minLength: 0)
     }
     .frame(height: 240)

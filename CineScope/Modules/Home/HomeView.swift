@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-  @StateObject private var viewModel = HomeViewModel()
+  @ObservedObject private var viewModel = HomeViewModel.shared
   
   var body: some View {
     NavigationStack {
@@ -36,15 +36,13 @@ struct HomeView: View {
                 await viewModel.loadMovies()
               }
             }
-            
             .buttonStyle(.borderedProminent)
           }
-          
           .padding()
           
         } else {
           ScrollView(showsIndicators: false) {
-            VStack(spacing: 0) {
+            LazyVStack(spacing: 0, pinnedViews: []) {
               if !viewModel.trendingMovies.isEmpty {
                 CarouselHeaderView(movies: viewModel.trendingMovies)
               }

@@ -19,7 +19,7 @@ final class MovieDetailViewModel: ObservableObject {
   @Published var errorMessage: String?
   
   private let tmdbService = TMDBService.shared
-
+  
   func loadDetails(for movieId: Int) async {
     isLoading = true
     errorMessage = nil
@@ -39,30 +39,29 @@ final class MovieDetailViewModel: ObservableObject {
       self.similarMovies = similarResponse.results
       self.reviews = reviewsResponse
       
-      // DEBUG: Videos kontrolü
       print("🎬 Videos API Response:")
-      print("  - Movie ID: \(movieId)")
-      print("  - Total Videos: \(videosResponse.results.count)")
+      print("- Movie ID: \(movieId)")
+      print("- Total Videos: \(videosResponse.results.count)")
       
       if !videosResponse.results.isEmpty {
-        print("  ✅ Videolar:")
+        print("✅ Videolar:")
         for (index, video) in videosResponse.results.enumerated() {
-          print("    \(index + 1). \(video.name)")
-          print("       Type: \(video.type)")
-          print("       Site: \(video.site)")
-          print("       Key: \(video.key)")
-          print("       Official: \(video.official)")
-          print("       Is Trailer: \(video.isTrailer)")
+          print("\(index + 1). \(video.name)")
+          print("Type: \(video.type)")
+          print("Site: \(video.site)")
+          print("Key: \(video.key)")
+          print("Official: \(video.official)")
+          print("Is Trailer: \(video.isTrailer)")
         }
         
         let trailers = videosResponse.trailers
-        print("  🎥 Trailers: \(trailers.count)")
+        print("🎥 Trailers: \(trailers.count)")
         for trailer in trailers {
-          print("    - \(trailer.name)")
-          print("      YouTube URL: \(trailer.youtubeURL?.absoluteString ?? "nil")")
+          print("- \(trailer.name)")
+          print("YouTube URL: \(trailer.youtubeURL?.absoluteString ?? "nil")")
         }
       } else {
-        print("  ⚠️ Bu filmde video yok!")
+        print("⚠️ Bu filmde video yok!")
       }
       
     } catch {
