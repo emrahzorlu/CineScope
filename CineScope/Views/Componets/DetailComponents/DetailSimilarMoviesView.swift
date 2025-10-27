@@ -20,10 +20,10 @@ struct DetailSimilarMoviesView: View {
       ScrollView(.horizontal, showsIndicators: false) {
         HStack(spacing: 12) {
           ForEach(movies) { movie in
-            NavigationLink(value: movie) {  // ← NavigationLink eklendi
+            NavigationLink(value: movie) {
               MovieCardView(movie: movie)
             }
-            .buttonStyle(.plain)  // ← Button stilini kaldır
+            .buttonStyle(.plain)  
           }
         }
         .padding(.horizontal)
@@ -33,7 +33,7 @@ struct DetailSimilarMoviesView: View {
 }
 
 #Preview {
-  NavigationStack {  // ← Preview için NavigationStack
+  NavigationStack { 
     ZStack {
       Color.black.ignoresSafeArea()
       

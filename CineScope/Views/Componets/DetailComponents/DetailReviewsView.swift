@@ -39,9 +39,7 @@ struct ReviewCardView: View {
   
   var body: some View {
     VStack(alignment: .leading, spacing: 12) {
-      // Author info
       HStack(spacing: 12) {
-        // Avatar placeholder
         Circle()
           .fill(Color.gray.opacity(0.3))
           .frame(width: 40, height: 40)
@@ -75,13 +73,11 @@ struct ReviewCardView: View {
           .foregroundColor(.gray)
       }
       
-      // Review content
       Text(isExpanded ? review.content : review.excerpt)
         .font(.subheadline)
         .foregroundColor(.gray)
         .lineSpacing(4)
       
-      // Daha fazla/az göster
       if review.content.count > 200 {
         Button {
           withAnimation {

@@ -22,10 +22,10 @@ struct MovieSection: View {
       ScrollView(.horizontal, showsIndicators: false) {
         HStack(spacing: 12) {
           ForEach(movies) { movie in
-            NavigationLink(value: movie) {  // ← NavigationLink eklendi
+            NavigationLink(value: movie) {
               MovieCardView(movie: movie)
             }
-            .buttonStyle(.plain)  // ← Button stilini kaldır (mavi renk olmasın)
+            .buttonStyle(.plain)
           }
         }
         .padding()
@@ -35,7 +35,7 @@ struct MovieSection: View {
 }
 
 #Preview {
-  NavigationStack {  // ← Preview için NavigationStack
+  NavigationStack {
     MovieSection(title: "Test Section", movies: MockData.popularMovies)
   }
 }

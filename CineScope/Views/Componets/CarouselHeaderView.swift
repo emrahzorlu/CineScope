@@ -16,10 +16,10 @@ struct CarouselHeaderView: View {
     VStack(spacing: 0) {
       TabView(selection: $currentIndex) {
         ForEach(Array(movies.prefix(5).enumerated()), id: \.element.id) { index, movie in
-          NavigationLink(value: movie) {  // ← NavigationLink eklendi
+          NavigationLink(value: movie) { 
             FeaturedMovieHeader(movie: movie)
           }
-          .buttonStyle(.plain)  // ← Button stilini kaldır
+          .buttonStyle(.plain)
           .tag(index)
         }
       }

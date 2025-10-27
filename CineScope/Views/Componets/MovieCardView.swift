@@ -13,7 +13,6 @@ struct MovieCardView: View {
   
   var body: some View {
     VStack(alignment: .leading, spacing: 0) {
-      // Poster
       KFImage(movie.posterURL)
         .fade(duration: 0.3)
         .placeholder {
@@ -29,7 +28,6 @@ struct MovieCardView: View {
         .frame(width: 120, height: 180)
         .clipShape(RoundedRectangle(cornerRadius: 8))
       
-      // Text ve Rating - poster'a yapışık
       VStack(alignment: .leading, spacing: 4) {
         Text(movie.title)
           .font(.caption)
@@ -50,7 +48,6 @@ struct MovieCardView: View {
         }
       }
       
-      // Spacer en altta - boşluk buraya
       Spacer(minLength: 0)
     }
     .frame(width: 120, height: 240)

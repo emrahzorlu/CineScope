@@ -15,7 +15,6 @@ struct DetailHeroHeaderView: View {
   var body: some View {
     GeometryReader { geometry in
       ZStack(alignment: .topLeading) {
-        // Backdrop Image
         KFImage(backdropURL)
           .fade(duration: 0.3)
           .placeholder {
@@ -31,7 +30,6 @@ struct DetailHeroHeaderView: View {
           .frame(width: geometry.size.width, height: 400)
           .clipped()
         
-        // Gradient Overlay
         LinearGradient(
           colors: [
             .black.opacity(0.3),

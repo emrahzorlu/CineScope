@@ -17,14 +17,12 @@ struct DetailMovieInfoView: View {
   
   var body: some View {
     VStack(alignment: .leading, spacing: 8) {
-      // Başlık
       Text(movieDetail?.title ?? movie.title)
         .font(.title)
         .fontWeight(.bold)
         .foregroundColor(.white)
         .fixedSize(horizontal: false, vertical: true)
       
-      // Türler (Kapsül şeklinde)
       if let genres = movieDetail?.genres, !genres.isEmpty {
         ScrollView(.horizontal, showsIndicators: false) {
           HStack(spacing: 8) {
@@ -42,9 +40,7 @@ struct DetailMovieInfoView: View {
         }
       }
       
-      // Meta bilgiler (Rating, Yıl, Süre)
       HStack(spacing: 12) {
-        // Rating
         HStack(spacing: 4) {
           Image(systemName: "star.fill")
             .foregroundColor(.yellow)
@@ -55,11 +51,9 @@ struct DetailMovieInfoView: View {
         Text("•")
           .foregroundColor(.gray)
         
-        // Yıl
         Text(movie.year)
           .foregroundColor(.gray)
         
-        // Süre
         if let runtime = movieDetail?.runtimeText {
           Text("•")
             .foregroundColor(.gray)
@@ -70,9 +64,7 @@ struct DetailMovieInfoView: View {
       .font(.subheadline)
       .padding(.top, 4)
       
-      // Butonlar
       HStack(spacing: 12) {
-        // Fragmanı İzle Butonu
         Button(action: onPlayTapped) {
           HStack(spacing: 8) {
             Image(systemName: "play.fill")
@@ -86,7 +78,6 @@ struct DetailMovieInfoView: View {
           .cornerRadius(8)
         }
         
-        // Listem Butonu
         Button(action: onAddToListTapped) {
           HStack(spacing: 8) {
             Image(systemName: isFavorite ? "checkmark" : "plus")
@@ -103,7 +94,6 @@ struct DetailMovieInfoView: View {
       }
       .padding(.top, 8)
       
-      // Özet (sadece varsa göster)
       if let overview = movieDetail?.overview, !overview.isEmpty {
         VStack(alignment: .leading, spacing: 8) {
           Text("Özet")

@@ -12,9 +12,8 @@ struct DetailCrewView: View {
   
   var body: some View {
     VStack(alignment: .leading, spacing: 12) {
-      // Yönetmen
       if let director = credits.directors.first {
-        HStack(alignment: .top, spacing: 8) {  // ← .top alignment
+        HStack(alignment: .top, spacing: 8) {
           Text("Yönetmen:")
             .font(.subheadline)
             .foregroundColor(.gray)
@@ -22,13 +21,12 @@ struct DetailCrewView: View {
             .font(.subheadline)
             .fontWeight(.medium)
             .foregroundColor(.white)
-          Spacer()  // ← Sağ tarafa Spacer
+          Spacer()
         }
       }
       
-      // Senaristler
       if !credits.writers.isEmpty {
-        HStack(alignment: .top, spacing: 8) {  // ← .top alignment
+        HStack(alignment: .top, spacing: 8) {
           Text("Senaryo:")
             .font(.subheadline)
             .foregroundColor(.gray)
@@ -37,11 +35,11 @@ struct DetailCrewView: View {
             .fontWeight(.medium)
             .foregroundColor(.white)
             .lineLimit(2)
-          Spacer()  // ← Sağ tarafa Spacer
+          Spacer()
         }
       }
     }
-    .frame(maxWidth: .infinity, alignment: .leading)  // ← Frame sola hizalı
+    .frame(maxWidth: .infinity, alignment: .leading)
     .padding(.horizontal)
   }
 }

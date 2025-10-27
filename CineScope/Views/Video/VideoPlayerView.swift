@@ -9,12 +9,11 @@ import SwiftUI
 import YouTubePlayerKit
 
 struct VideoPlayerView: View {
-  @Binding var video: MovieVideo?  // ← Binding olarak değiştirdik
+  @Binding var video: MovieVideo?
   let movieTitle: String
   @Environment(\.dismiss) private var dismiss
   
   var youtubePlayer: YouTubePlayer? {
-    // DEBUG
     print("🔍 VideoPlayerView Init:")
     print("  - video: \(video != nil ? "VAR" : "YOK")")
     if let video = video {
@@ -24,7 +23,6 @@ struct VideoPlayerView: View {
       print("  - video.type: \(video.type)")
     }
     
-    // Video varsa player oluştur
     guard let videoKey = video?.key else {
       print("  ❌ video.key NIL - Player oluşturulmadı")
       return nil
@@ -39,7 +37,6 @@ struct VideoPlayerView: View {
       Color.black.ignoresSafeArea()
       
       VStack(spacing: 0) {
-        // Close Button
         HStack {
           Button {
             dismiss()
@@ -56,9 +53,7 @@ struct VideoPlayerView: View {
         
         Spacer()
         
-        // Video Player veya Hata Mesajı
         if let player = youtubePlayer, let currentVideo = video {
-          // YouTube Player
           YouTubePlayerView(player)
             .frame(height: 250)
             .cornerRadius(12)
@@ -69,7 +64,6 @@ struct VideoPlayerView: View {
           
           Spacer()
           
-          // Video Info
           VStack(alignment: .leading, spacing: 12) {
             Text(currentVideo.name)
               .font(.title3)
@@ -96,7 +90,6 @@ struct VideoPlayerView: View {
           Spacer()
           
         } else {
-          // Fragman Yok Mesajı
           VStack(spacing: 20) {
             Image(systemName: "exclamationmark.triangle")
               .font(.system(size: 60))
@@ -126,7 +119,6 @@ struct VideoPlayerView: View {
     .preferredColorScheme(.dark)
     .task {
       print("🎬 task block çalıştı")
-      // Video varsa otomatik oynat
       if let player = youtubePlayer {
         print("  ✅ Player var - play() çağrılıyor")
         do {
@@ -143,7 +135,6 @@ struct VideoPlayerView: View {
 }
 
 #Preview {
-  // Trailer var
   @Previewable @State var video: MovieVideo? = MovieVideo(
     id: "1",
     key: "QV8OwaW8YsE",
@@ -161,7 +152,6 @@ struct VideoPlayerView: View {
 }
 
 #Preview("Fragman Yok") {
-  // Trailer yok
   @Previewable @State var video: MovieVideo? = nil
   
   VideoPlayerView(

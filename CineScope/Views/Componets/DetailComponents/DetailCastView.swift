@@ -35,7 +35,6 @@ struct CastCardView: View {
   
   var body: some View {
     VStack(spacing: 8) {
-      // Profile Photo
       KFImage(actor.profileURL)
         .fade(duration: 0.3)
         .placeholder {
@@ -51,16 +50,14 @@ struct CastCardView: View {
         .frame(width: 80, height: 80)
         .clipShape(Circle())
       
-      // Name
       Text(actor.name)
         .font(.caption)
         .fontWeight(.medium)
         .foregroundColor(.white)
         .lineLimit(2)
         .multilineTextAlignment(.center)
-        .fixedSize(horizontal: false, vertical: true)  // ← Dinamik yükseklik
+        .fixedSize(horizontal: false, vertical: true)
       
-      // Character
       Text(actor.character)
         .font(.caption2)
         .foregroundColor(.gray)
