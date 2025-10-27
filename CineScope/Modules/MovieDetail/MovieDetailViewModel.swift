@@ -39,26 +39,31 @@ final class MovieDetailViewModel: ObservableObject {
       self.similarMovies = similarResponse.results
       self.reviews = reviewsResponse
       
-      // DEBUG: Reviews kontrolü
-      print("🔍 Reviews API Response:")
+      // DEBUG: Videos kontrolü
+      print("🎬 Videos API Response:")
       print("  - Movie ID: \(movieId)")
-      print("  - Total Results: \(reviewsResponse.totalResults)")
-      print("  - Total Pages: \(reviewsResponse.totalPages)")
-      print("  - Current Page: \(reviewsResponse.page)")
-      print("  - Results Count: \(reviewsResponse.results.count)")
+      print("  - Total Videos: \(videosResponse.results.count)")
       
-      if !reviewsResponse.results.isEmpty {
-        print("  ✅ Yorumlar:")
-        for (index, review) in reviewsResponse.results.enumerated() {
-          print("    \(index + 1). \(review.author) - Rating: \(review.authorDetails.rating ?? 0)")
-          print("       Preview: \(String(review.content.prefix(100)))...")
+      if !videosResponse.results.isEmpty {
+        print("  ✅ Videolar:")
+        for (index, video) in videosResponse.results.enumerated() {
+          print("    \(index + 1). \(video.name)")
+          print("       Type: \(video.type)")
+          print("       Site: \(video.site)")
+          print("       Key: \(video.key)")
+          print("       Official: \(video.official)")
+          print("       Is Trailer: \(video.isTrailer)")
+        }
+        
+        let trailers = videosResponse.trailers
+        print("  🎥 Trailers: \(trailers.count)")
+        for trailer in trailers {
+          print("    - \(trailer.name)")
+          print("      YouTube URL: \(trailer.youtubeURL?.absoluteString ?? "nil")")
         }
       } else {
-        print("  ⚠️ Bu filmde yorum yok!")
+        print("  ⚠️ Bu filmde video yok!")
       }
-      
-      // API URL'i print et (manuel kontrol için)
-      print("  📍 API URL: https://api.themoviedb.org/3/movie/\(movieId)/reviews?language=tr-TR")
       
     } catch {
       errorMessage = "Hata: \(error.localizedDescription)"

@@ -20,9 +20,9 @@ enum TabItem: Int, CaseIterable {
     case .search:
       return "magnifyingglass"
     case .favorites:
-      return "heart.fill"
+      return "plus.rectangle.on.rectangle.fill"
     case .settings:
-      return "person.fill"
+      return "gearshape.fill"
     }
   }
   
@@ -33,7 +33,7 @@ enum TabItem: Int, CaseIterable {
     case .search:
       return "Ara"
     case .favorites:
-      return "Favoriler"
+      return "Listem"
     case .settings:
       return "Ayarlar"
     }

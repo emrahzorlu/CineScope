@@ -10,7 +10,10 @@ import SwiftUI
 struct MovieDetailView: View {
   let movie: Movie
   @StateObject private var viewModel = MovieDetailViewModel()
+  @StateObject private var favoritesManager = FavoritesManager.shared
   @Environment(\.dismiss) private var dismiss
+  @State private var showVideoPlayer = false
+  @State private var selectedVideo: MovieVideo?
   
   var body: some View {
     ZStack {
@@ -57,11 +60,32 @@ struct MovieDetailView: View {
               DetailMovieInfoView(
                 movie: movie,
                 movieDetail: viewModel.movieDetail,
+                hasTrailer: !(viewModel.videos?.trailers.isEmpty ?? true),
+                isFavorite: favoritesManager.isFavorite(movie),
                 onPlayTapped: {
-                  print("İzle: \(movie.title)")
+                  print("🎬 onPlayTapped çağrıldı")
+                  print("  - viewModel.videos: \(viewModel.videos != nil ? "VAR" : "YOK")")
+                  if let videos = viewModel.videos {
+                    print("  - trailers count: \(videos.trailers.count)")
+                    if let first = videos.trailers.first {
+                      print("  - first trailer key: \(first.key)")
+                    }
+                  }
+                  
+                  selectedVideo = viewModel.videos?.trailers.first
+                  
+                  print("  - selectedVideo set edildi: \(selectedVideo != nil ? "VAR" : "YOK")")
+                  if let selected = selectedVideo {
+                    print("  - selectedVideo.key: \(selected.key)")
+                  }
+                  
+                  showVideoPlayer = true
+                  print("  - showVideoPlayer = true")
                 },
                 onAddToListTapped: {
-                  print("Listeye ekle: \(movie.title)")
+                  withAnimation {
+                    favoritesManager.toggleFavorite(movie)
+                  }
                 }
               )
               
@@ -108,6 +132,16 @@ struct MovieDetailView: View {
     .navigationDestination(for: Movie.self) { movie in
       MovieDetailView(movie: movie)
     }
+    .fullScreenCover(isPresented: $showVideoPlayer) {
+      VideoPlayerView(video: $selectedVideo, movieTitle: movie.title)  // ← Binding ile geçir
+        .onAppear {
+          print("📺 fullScreenCover açıldı")
+          print("  - selectedVideo: \(selectedVideo != nil ? "VAR" : "YOK")")
+          if let video = selectedVideo {
+            print("  - video.key: \(video.key)")
+          }
+        }
+    }
     .task {
       await viewModel.loadDetails(for: movie.id)
     }
@@ -116,6 +150,15 @@ struct MovieDetailView: View {
 
 #Preview {
   NavigationStack {
-    MovieDetailView(movie: MockData.sampleMovie1)
+    MovieDetailView(movie: Movie(
+      id: 693134,
+      title: "Dune: Part Two",
+      overview: "Test",
+      posterPath: "/8b8R8l88Qje9dn9OE8PY05Nxl1X.jpg",
+      backdropPath: "/xOMo8BRK7PfcJv9JCnx7s5hj0PX.jpg",
+      voteAverage: 8.2,
+      releaseDate: "2024-02-27",
+      genreIds: [878, 12]
+    ))
   }
 }

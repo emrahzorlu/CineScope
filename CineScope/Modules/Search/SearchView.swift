@@ -123,7 +123,7 @@ struct SearchMovieCard: View {
   let movie: Movie
   
   var body: some View {
-    VStack(alignment: .leading, spacing: 8) {
+    VStack(alignment: .leading, spacing: 0) {
       // Poster
       AsyncImage(url: movie.posterURL) { image in
         image
@@ -140,25 +140,32 @@ struct SearchMovieCard: View {
       .frame(height: 180)
       .clipShape(RoundedRectangle(cornerRadius: 12))
       
-      // Title
-      Text(movie.title)
-        .font(.caption)
-        .fontWeight(.semibold)
-        .foregroundColor(.white)
-        .lineLimit(2)
-        .multilineTextAlignment(.leading)
-      
-      // Rating
-      HStack(spacing: 4) {
-        Image(systemName: "star.fill")
-          .font(.caption2)
-          .foregroundColor(.yellow)
+      // Text ve Rating - poster'a yapışık
+      VStack(alignment: .leading, spacing: 4) {
+        Text(movie.title)
+          .font(.caption)
+          .fontWeight(.semibold)
+          .foregroundColor(.white)
+          .lineLimit(2)
+          .multilineTextAlignment(.leading)
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .padding(.top, 8)
         
-        Text(movie.ratingText)
-          .font(.caption2)
-          .foregroundColor(.gray)
+        HStack(spacing: 4) {
+          Image(systemName: "star.fill")
+            .font(.caption2)
+            .foregroundColor(.yellow)
+          
+          Text(movie.ratingText)
+            .font(.caption2)
+            .foregroundColor(.gray)
+        }
       }
+      
+      // Spacer en altta - boşluk buraya
+      Spacer(minLength: 0)
     }
+    .frame(height: 240)
   }
 }
 

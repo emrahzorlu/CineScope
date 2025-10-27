@@ -10,6 +10,8 @@ import SwiftUI
 struct DetailMovieInfoView: View {
   let movie: Movie
   let movieDetail: MovieDetail?
+  let hasTrailer: Bool
+  let isFavorite: Bool
   let onPlayTapped: () -> Void
   let onAddToListTapped: () -> Void
   
@@ -70,11 +72,11 @@ struct DetailMovieInfoView: View {
       
       // Butonlar
       HStack(spacing: 12) {
-        // İzle Butonu
+        // Fragmanı İzle Butonu
         Button(action: onPlayTapped) {
           HStack(spacing: 8) {
             Image(systemName: "play.fill")
-            Text("İzle")
+            Text("Fragmanı İzle")
               .fontWeight(.semibold)
           }
           .frame(maxWidth: .infinity)
@@ -84,20 +86,25 @@ struct DetailMovieInfoView: View {
           .cornerRadius(8)
         }
         
-        // Listeye Ekle
+        // Listem Butonu
         Button(action: onAddToListTapped) {
-          Image(systemName: "plus")
-            .font(.title3)
-            .foregroundColor(.white)
-            .padding(12)
-            .background(Color.gray.opacity(0.3))
-            .cornerRadius(8)
+          HStack(spacing: 8) {
+            Image(systemName: isFavorite ? "checkmark" : "plus")
+              .font(.system(size: 16, weight: .semibold))
+            Text("Listem")
+              .fontWeight(.semibold)
+          }
+          .padding(.horizontal, 16)
+          .padding(.vertical, 12)
+          .background(isFavorite ? Color.white : Color.gray.opacity(0.3))
+          .foregroundColor(isFavorite ? .black : .white)
+          .cornerRadius(8)
         }
       }
       .padding(.top, 8)
       
-      // Özet
-      if let overview = movieDetail?.overview {
+      // Özet (sadece varsa göster)
+      if let overview = movieDetail?.overview, !overview.isEmpty {
         VStack(alignment: .leading, spacing: 8) {
           Text("Özet")
             .font(.headline)
@@ -120,8 +127,19 @@ struct DetailMovieInfoView: View {
     Color.black.ignoresSafeArea()
     
     DetailMovieInfoView(
-      movie: MockData.sampleMovie1,
-      movieDetail: MockData.sampleMovieDetail,
+      movie: Movie(
+        id: 1,
+        title: "Test Film",
+        overview: "Test",
+        posterPath: nil,
+        backdropPath: nil,
+        voteAverage: 8.5,
+        releaseDate: "2024-01-01",
+        genreIds: []
+      ),
+      movieDetail: nil,
+      hasTrailer: true,
+      isFavorite: false,
       onPlayTapped: {},
       onAddToListTapped: {}
     )
